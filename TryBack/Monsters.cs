@@ -9,33 +9,24 @@ namespace TryBack
 {
     class Monsters : Creature
     {
-        
         private string name;
         private string typeMonster;
-        private int damage1;
-        private int healtPoint1;
         enum TypeMonsters
         {
             Beer,
             Spider,
             Snake
         }
-
-      
-
-        public Monsters(string Name, string _TypeMonsters,string Damage,string HealtPoint)
-        {
-            name=Name;
-            typeMonster=Enum.GetName(typeof(TypeMonsters), int.Parse(_TypeMonsters));
-           damage1 = int.Parse(Damage);
-           healtPoint1 =int.Parse(HealtPoint);
-          
-            
-        }
-        Random random1 = new Random();
-        public override int damage { get => damage1; set => damage = damage1; }
-        public override int healtPoint { get => healtPoint; set => healtPoint = healtPoint1; }
+        protected override int damage { get; set; }
+        protected override int healtPoint { get; set ; }
         
+        public Monsters(string name, string _TypeMonsters,string damage,string healtPoint)
+        {
+            this.name=name;
+            typeMonster=Enum.GetName(typeof(TypeMonsters), int.Parse(_TypeMonsters));
+            this.damage = int.Parse(damage);
+            this.healtPoint =int.Parse(healtPoint);
+        }
 
         public override void Attack(Player player, Monsters monsters)
         {
@@ -44,6 +35,7 @@ namespace TryBack
 
         public static void PrintTxt()
         {
+            
             String line;
             try
             {
@@ -76,12 +68,9 @@ namespace TryBack
         {
             string[] monsters = File.ReadAllLines(@"D:\Test.txt");
             int numberOfLines = monsters.Length-1;
-            
             int randNumber=MathUtils.GetRandomNumber(numberOfLines);
             string strMonster = monsters[randNumber];
             string[] monsterProperties = strMonster.Split(';');
-
-
             new Monsters(monsterProperties[0],monsterProperties[1],monsterProperties[2],monsterProperties[3]);
             
             

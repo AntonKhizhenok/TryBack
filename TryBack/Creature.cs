@@ -9,10 +9,10 @@ namespace TryBack
     abstract class Creature
     {
         
-        public abstract int damage { get; set;}
-        public abstract int healtPoint { get; set; }
+        protected abstract int damage { get; set;}
+        protected abstract int healtPoint { get; set; }
         public abstract void Attack(Player player,Monsters monsters);
-        protected bool isAlive()
+        public bool isAlive()
         {
                 return healtPoint <= 0;
         }
