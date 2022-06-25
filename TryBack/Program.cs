@@ -10,7 +10,7 @@ namespace TryBack
     class Program
     {
         
-            static void PrintMenu1()
+            static void PrintMenu()
             {
             Console.Clear();
             Console.WriteLine("\t\tMenu game");
@@ -24,10 +24,17 @@ namespace TryBack
 
         static void Main(string[] args)
         {
-            PrintMenu1();
+
+            PrintMenu();
+            Console.WriteLine();
+            Player.InfoPlayer();
+            Console.WriteLine();
+            Player.GetInfoPlayer();
+            Console.WriteLine();
             Monsters.PrintTxt();
+            Console.WriteLine();
             Monsters.GetNewMonster();
-            
+           
         }
     }
 }

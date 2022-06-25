@@ -9,16 +9,17 @@ namespace TryBack
 {
     class Monsters : Creature
     {
-        private string name;
-        private string typeMonster;
+        private string name { get; set; }
+        private string typeMonster{ get; set; }
+        protected override int damage { get; set; }
+        public override int healtPoint { get; set; }
+
         enum TypeMonsters
         {
             Beer,
             Spider,
             Snake
         }
-        protected override int damage { get; set; }
-        protected override int healtPoint { get; set ; }
         
         public Monsters(string name, string _TypeMonsters,string damage,string healtPoint)
         {
