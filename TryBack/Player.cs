@@ -14,7 +14,8 @@ namespace TryBack
         private int level;
         protected override int damage { get; set; }
         public override int healtPoint { get; set; }
- 
+
+
         public Player(string name,string typePlayer,string level,string damage,string healtPoint)
         {
             this.name = name;
@@ -26,7 +27,8 @@ namespace TryBack
             Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tDamage:{damage}\tHealtPoint:{healtPoint}");
             Console.WriteLine();
         }
-        
+
+
         public override void Attack(Player player, Monsters monsters)
         {
             monsters.healtPoint -= player.damage;
@@ -72,12 +74,6 @@ namespace TryBack
             new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4]);
             
         }
-
-       
-        
-        
-       
-
     }
 }
 

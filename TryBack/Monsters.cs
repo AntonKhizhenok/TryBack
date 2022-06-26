@@ -20,14 +20,18 @@ namespace TryBack
             Spider,
             Snake
         }
-        
+
         public Monsters(string name, string _TypeMonsters,string damage,string healtPoint)
         {
             this.name=name;
             typeMonster=Enum.GetName(typeof(TypeMonsters), int.Parse(_TypeMonsters));
             this.damage = int.Parse(damage);
             this.healtPoint =int.Parse(healtPoint);
+            Console.WriteLine("\t\t\tINFO OF RANDOM MONSTER");
+            Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\tDamage:{damage}\tHealtPoint:{healtPoint}");
+            Console.WriteLine();
         }
+
 
         public override void Attack(Player player, Monsters monsters)
         {
@@ -36,34 +40,17 @@ namespace TryBack
 
         public static void PrintTxt()
         {
-            
             String line;
-            try
+            StreamReader arrMonster = new StreamReader("D:\\Test.txt");
+            line = arrMonster.ReadLine();
+            while (line != null)
             {
-                //Pass the file path and file name to the StreamReader constructor
-                StreamReader arrMonster = new StreamReader("D:\\Test.txt");
-                //Read the first line of text
+                Console.WriteLine(line);
                 line = arrMonster.ReadLine();
-                //Continue to read until you reach end of file
-                while (line != null)
-                {
-                    //write the line to console window
-                    Console.WriteLine(line);
-                    //Read the next line
-                    line = arrMonster.ReadLine();
-                }
-                //close the file
-                arrMonster.Close();
-                Console.ReadLine();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-            }
+            arrMonster.Close();
+            //Console.ReadLine();
+            
         }
         public static void GetNewMonster()
         {
@@ -73,8 +60,6 @@ namespace TryBack
             string strMonster = monsters[randNumber];
             string[] monsterProperties = strMonster.Split(';');
             new Monsters(monsterProperties[0],monsterProperties[1],monsterProperties[2],monsterProperties[3]);
-            
-            
         }
     }
     }

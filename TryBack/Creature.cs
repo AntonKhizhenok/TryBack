@@ -11,7 +11,7 @@ namespace TryBack
         
         protected abstract int damage { get; set;}
         public abstract int healtPoint { get; set; }
-        public abstract void Attack(Player player,Monsters monsters);
+        public abstract void Attack(Player player, Monsters monsters);
         public bool isAlive()
         {
                 return healtPoint <= 0;
