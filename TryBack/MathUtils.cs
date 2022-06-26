@@ -18,5 +18,14 @@ namespace TryBack
             Random randomDamage = new Random();
             return randomDamage.Next(damage - value, damage + value);
         }
+        public static int MinDamage(int damage,int value)
+        {
+            return Math.Min(damage - value, damage + value);
+        }
+        public static int MaxDamage(int damage, int value)
+        {
+            return Math.Max(damage - value, damage + value);
+        }
+
     }
 }

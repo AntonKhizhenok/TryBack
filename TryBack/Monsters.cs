@@ -10,11 +10,12 @@ namespace TryBack
     class Monsters : Creature
     {
         private string name { get; set; }
-        private string typeMonster{ get; set; }
+        private string typeMonster { get; set; }
         protected override int damage { get; set; }
         protected override int randDamage { get; set; }
         public override int healtPoint { get; set; }
-
+        public override int minDamage { get; set; }
+        public override int maxDamage{ get; set; }
         enum TypeMonsters
         {
             Beer,
@@ -32,16 +33,28 @@ namespace TryBack
         }
         public void PrintMonster()
         {
+            minDamage = MinDamage();
+            maxDamage = MaxDamage();
             Console.WriteLine();
-            Console.WriteLine("\t\t\t\tINFO OF MONSTER");
-            Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\t\t\tDamage:{randDamage}\tHealtPoint:{healtPoint}");
+            Console.WriteLine("\t\t\t\t\t\tINFO OF MONSTER");
+            Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\t\t\tBasic damage:{damage} Random Damage:{randDamage} (Min:{minDamage}-Max:{maxDamage})\t\tHealtPoint:{healtPoint}");
             Console.WriteLine();
             randDamage = damage;
         }
+        public override int MinDamage()
+        {
+            return MathUtils.MinDamage(damage, 5);
+        }
+        public override int MaxDamage()
+        {
+            return MathUtils.MaxDamage(damage, 5);
+        }
 
-        
+
         public override void Attack(Player player, Monsters monsters)
         {
+            minDamage = MathUtils.MinDamage(damage, 3);
+            maxDamage = MathUtils.MaxDamage(damage, 3);
             randDamage=MathUtils.GetRandomDamage(damage, 3);
             player.healtPoint -= randDamage;
 
@@ -58,7 +71,6 @@ namespace TryBack
                 line = arrMonster.ReadLine();
             }
             arrMonster.Close();
-            //Console.ReadLine();
             
         }
         public static Monsters GetMonster()

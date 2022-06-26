@@ -15,6 +15,8 @@ namespace TryBack
         protected override int randDamage { get; set; }
         protected override int damage { get; set; }
         public override int healtPoint { get; set; }
+        public override int minDamage { get; set; }
+        public override int maxDamage { get; set ; }
 
 
         public Player(string name,string typePlayer,string level,string damage,string healtPoint)
@@ -28,50 +30,51 @@ namespace TryBack
         }
         public void PrintPlayer()
         {
+            minDamage = MinDamage();
+            maxDamage = MaxDamage();
             Console.WriteLine();
-            Console.WriteLine($"\t\t\t\tINFO OF PLAYER!!!");
-            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tDamage:{randDamage}\tHealtPoint:{healtPoint}");
+            Console.WriteLine($"\t\t\t\t\t\tINFO OF PLAYER!!!");
+            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tBasic damage:{damage} Random Damage: {randDamage} (Min:{minDamage}-Max:{maxDamage})\t\tHealtPoint:{healtPoint}");
             Console.WriteLine();
             randDamage = damage;
         }
 
+        public void PrintInfoPlayer()
+        {
+            minDamage = MinDamage();
+            maxDamage = MaxDamage();
+            Console.WriteLine();
+            Console.WriteLine($"\t\t\t\t\t\tPLAYER CHARACTERIES!!!");
+            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tBasic damage:{damage} (Min:{minDamage}-Max:{maxDamage})\t\tHealtPoint:{healtPoint}");
+            Console.WriteLine();
+        }
+
+        public override int MinDamage()
+        {
+            return MathUtils.MinDamage(damage, 5);
+        }
+        public override int MaxDamage()
+        {
+            return MathUtils.MaxDamage(damage, 5);
+        }
 
         public override void Attack(Player player, Monsters monsters)
         {
             randDamage = MathUtils.GetRandomDamage(damage, 5);
             monsters.healtPoint -= randDamage;
-
         }
 
         public static void InfoPlayer()
         {
             String line;
-            try
-            {
-                //Pass the file path and file name to the StreamReader constructor
                 StreamReader arrPlayer = new StreamReader("D:\\Player.txt");
-                //Read the first line of text
                 line = arrPlayer.ReadLine();
-                //Continue to read until you reach end of file
                 while (line != null)
                 {
-                    //write the line to console window
                     Console.WriteLine(line);
-                    //Read the next line
                     line = arrPlayer.ReadLine();
                 }
-                //close the file
                 arrPlayer.Close();
-                Console.ReadLine();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executing finally block.");
-            }
         }
         public static Player GetPlayer()
         {
