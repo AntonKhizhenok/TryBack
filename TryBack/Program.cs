@@ -21,41 +21,40 @@ namespace TryBack
         }
 
 
-        static void input(Player player,Monsters monsters)
+        static void input(Player player1, Monsters monsters1)
         {
             int inputMenu = int.Parse(Console.ReadLine());
             switch (inputMenu)
             {
                 case 1:
-
-                    Player.GetInfoPlayer();
+                    player1.PrintPlayer();
                     break;
                 case 2:
-                    Fight(player, monsters);
+                    Fight(player1, monsters1);
                     break;
             }
         }
 
-        static void Fight(Player player, Monsters monsters)
+        static void Fight(Player player1, Monsters monsters1)
         {
             int attOrRun = 0;
-            Monsters.GetNewMonster();
-            Player.GetInfoPlayer();
-            while (monsters.isAlive())
+            Monsters.GetMonster();
+            Player.GetPlayer();
+            while (monsters1.isAlive())
             {
-                if (player.isAlive())
+                if (player1.isAlive())
                 {
-                    player.Attack(player, monsters);
-                    Monsters.GetNewMonster();
-                    monsters.Attack(player, monsters);
-                    Player.GetInfoPlayer();
+                    player1.Attack(player1, monsters1);
+                    Monsters.GetMonster();
+                    monsters1.Attack(player1, monsters1);
+                    Player.GetPlayer();
                     Console.WriteLine("attack or run away 1-attack, 2-run away");
                     switch (attOrRun)
                     {
                         case 1:
                             break;
                         case 2:
-                            Monsters.GetNewMonster();
+                            Monsters.GetMonster();
                             break;
                     }
 
@@ -72,10 +71,10 @@ namespace TryBack
 
         static void Main(string[] args)
         {
-
-            
+            Player player2=Player.GetPlayer();
+            Monsters monsters2 = Monsters.GetMonster();
             PrintMenu();
-            //input();
+            input(player2,monsters2);
             
 
         }

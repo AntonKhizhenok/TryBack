@@ -9,7 +9,7 @@ namespace TryBack
 {
     class Player : Creature
     {
-        private string name;
+        public string name;
         private string typePlayer;
         private int level;
         protected override int damage { get; set; }
@@ -23,6 +23,10 @@ namespace TryBack
             this.level = int.Parse(level);
             this.damage = int.Parse(damage);
             this.healtPoint=int.Parse(healtPoint);
+
+        }
+        public void PrintPlayer()
+        {
             Console.WriteLine($"\t\t\t\tPLAYER CHARACTERISTIC");
             Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tDamage:{damage}\tHealtPoint:{healtPoint}");
             Console.WriteLine();
@@ -64,16 +68,17 @@ namespace TryBack
                 Console.WriteLine("Executing finally block.");
             }
         }
-        public static void GetInfoPlayer()
+        public static Player GetPlayer()
         {
             string[] player = File.ReadAllLines(@"D:\Player.txt");
             int numberOfLines = player.Length - 1;
             int randNumberPlayer = MathUtils.GetRandomNumber(numberOfLines);
             string strPlayer = player[randNumberPlayer];
             string[] playerProperties = strPlayer.Split(';');
-            new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4]);
-            
+            Player playerObj = new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4]);
+            return playerObj;
         }
+        
     }
 }
 

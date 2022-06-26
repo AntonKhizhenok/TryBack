@@ -27,6 +27,10 @@ namespace TryBack
             typeMonster=Enum.GetName(typeof(TypeMonsters), int.Parse(_TypeMonsters));
             this.damage = int.Parse(damage);
             this.healtPoint =int.Parse(healtPoint);
+
+        }
+        public void PrintMonster()
+        {
             Console.WriteLine("\t\t\tINFO OF RANDOM MONSTER");
             Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\tDamage:{damage}\tHealtPoint:{healtPoint}");
             Console.WriteLine();
@@ -52,14 +56,15 @@ namespace TryBack
             //Console.ReadLine();
             
         }
-        public static void GetNewMonster()
+        public static Monsters GetMonster()
         {
             string[] monsters = File.ReadAllLines(@"D:\Test.txt");
             int numberOfLines = monsters.Length-1;
             int randNumber=MathUtils.GetRandomNumber(numberOfLines);
             string strMonster = monsters[randNumber];
             string[] monsterProperties = strMonster.Split(';');
-            new Monsters(monsterProperties[0],monsterProperties[1],monsterProperties[2],monsterProperties[3]);
+            Monsters monstersObj= new Monsters(monsterProperties[0],monsterProperties[1],monsterProperties[2],monsterProperties[3]);
+            return  monstersObj;
         }
     }
     }
