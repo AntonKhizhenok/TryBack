@@ -12,6 +12,7 @@ namespace TryBack
         private string name { get; set; }
         private string typeMonster{ get; set; }
         protected override int damage { get; set; }
+        protected override int randDamage { get; set; }
         public override int healtPoint { get; set; }
 
         enum TypeMonsters
@@ -31,15 +32,19 @@ namespace TryBack
         }
         public void PrintMonster()
         {
-            Console.WriteLine("\t\t\tINFO OF RANDOM MONSTER");
-            Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\tDamage:{damage}\tHealtPoint:{healtPoint}");
             Console.WriteLine();
+            Console.WriteLine("\t\t\t\tINFO OF MONSTER");
+            Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\t\t\tDamage:{randDamage}\tHealtPoint:{healtPoint}");
+            Console.WriteLine();
+            randDamage = damage;
         }
 
-
+        
         public override void Attack(Player player, Monsters monsters)
         {
-            player.healtPoint -= monsters.damage;
+            randDamage=MathUtils.GetRandomDamage(damage, 3);
+            player.healtPoint -= randDamage;
+
         }
 
         public static void PrintTxt()
@@ -59,7 +64,7 @@ namespace TryBack
         public static Monsters GetMonster()
         {
             string[] monsters = File.ReadAllLines(@"D:\Test.txt");
-            int numberOfLines = monsters.Length-1;
+            int numberOfLines = monsters.Length;
             int randNumber=MathUtils.GetRandomNumber(numberOfLines);
             string strMonster = monsters[randNumber];
             string[] monsterProperties = strMonster.Split(';');

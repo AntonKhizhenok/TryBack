@@ -9,9 +9,10 @@ namespace TryBack
 {
     class Player : Creature
     {
-        public string name;
-        private string typePlayer;
-        private int level;
+        public string name { get; set; }
+        private string typePlayer { get; set; }
+        private int level { get; set; }
+        protected override int randDamage { get; set; }
         protected override int damage { get; set; }
         public override int healtPoint { get; set; }
 
@@ -27,15 +28,19 @@ namespace TryBack
         }
         public void PrintPlayer()
         {
-            Console.WriteLine($"\t\t\t\tPLAYER CHARACTERISTIC");
-            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tDamage:{damage}\tHealtPoint:{healtPoint}");
             Console.WriteLine();
+            Console.WriteLine($"\t\t\t\tINFO OF PLAYER!!!");
+            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tDamage:{randDamage}\tHealtPoint:{healtPoint}");
+            Console.WriteLine();
+            randDamage = damage;
         }
 
 
         public override void Attack(Player player, Monsters monsters)
         {
-            monsters.healtPoint -= player.damage;
+            randDamage = MathUtils.GetRandomDamage(damage, 5);
+            monsters.healtPoint -= randDamage;
+
         }
 
         public static void InfoPlayer()
@@ -71,7 +76,7 @@ namespace TryBack
         public static Player GetPlayer()
         {
             string[] player = File.ReadAllLines(@"D:\Player.txt");
-            int numberOfLines = player.Length - 1;
+            int numberOfLines = player.Length;
             int randNumberPlayer = MathUtils.GetRandomNumber(numberOfLines);
             string strPlayer = player[randNumberPlayer];
             string[] playerProperties = strPlayer.Split(';');

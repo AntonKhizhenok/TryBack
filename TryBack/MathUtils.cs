@@ -12,7 +12,11 @@ namespace TryBack
         {
             Random random = new Random();
             return random.Next(0, n);
-            
+        }
+        public static int GetRandomDamage(int damage,int value)
+        {
+            Random randomDamage = new Random();
+            return randomDamage.Next(damage - value, damage + value);
         }
     }
 }

@@ -37,46 +37,59 @@ namespace TryBack
 
         static void Fight(Player player1, Monsters monsters1)
         {
-            int attOrRun = 0;
-            Monsters.GetMonster();
-            Player.GetPlayer();
             while (monsters1.isAlive())
             {
                 if (player1.isAlive())
                 {
                     player1.Attack(player1, monsters1);
-                    Monsters.GetMonster();
                     monsters1.Attack(player1, monsters1);
-                    Player.GetPlayer();
-                    Console.WriteLine("attack or run away 1-attack, 2-run away");
+                    player1.PrintPlayer();
+                    monsters1.PrintMonster();
+                    if (player1.isAlive() == false)
+                    {
+                        Console.WriteLine("\t\t\t\tYOU DEAD!!!!!((((");
+                        break;
+                    }
+                    if (monsters1.isAlive() == false)
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("\t\t\t\t\tMOSTER DEAD:D))))))");
+                        break;
+                    }
+                    Console.Write("\t\tAttack or run away 1-attack, 2-run away:");
+                    int attOrRun = int.Parse(Console.ReadLine());
                     switch (attOrRun)
                     {
                         case 1:
                             break;
                         case 2:
-                            Monsters.GetMonster();
+                            int randNum = MathUtils.GetRandomNumber(2);
+                            Console.WriteLine();
+                            Console.WriteLine("\t\t\t50/50 chance run away:\t" + randNum);
+                            Console.WriteLine();
+                            switch (randNum)
+                            {
+                                case 0:
+                                    break;
+                                case 1:
+                                    monsters1 = Monsters.GetMonster();
+                                    Console.WriteLine("\t\t\t\tNEW MONSTER");
+                                    Console.WriteLine();
+                                    break;
+                            }
                             break;
                     }
-
-                }
-                else
-                {
-                    Console.WriteLine("Game Over!!!!!((((");
                 }
             }
         }
-
-
-
-
+        
         static void Main(string[] args)
         {
             Player player2=Player.GetPlayer();
             Monsters monsters2 = Monsters.GetMonster();
             PrintMenu();
             input(player2,monsters2);
-            
-
+            Console.ReadLine();
         }
     }
 }
