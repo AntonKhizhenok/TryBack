@@ -41,13 +41,16 @@ namespace TryBack
         }
         public void classPlayer1()
         {
-            Console.WriteLine("Select player class (1,2,3)");
+            Console.WriteLine("Select player class ");
             Console.WriteLine();
            string[]massClassPlayer=Enum.GetNames(typeof(classPlayer));
-            foreach (string item in massClassPlayer)
-            {
-                Console.WriteLine(item);
-            }
+
+                for (int i = 0; i < massClassPlayer.Length; i++)
+                {
+                    Console.WriteLine($"{i+1}) {massClassPlayer[i]}");
+                }
+                
+            
             int select = int.Parse(Console.ReadLine());
             switch (select)
             {
@@ -68,7 +71,7 @@ namespace TryBack
         {
             Console.WriteLine();
             Console.WriteLine($"\t\tINFO OF PLAYER!!!");
-            Console.WriteLine($"{name}\t{typePlayer}\tlvl.{level}\t\tDamage: {randDamage}\t\t HP:{healtPoint}");
+            Console.WriteLine($"{name}\t{typePlayer}\tlvl.{level}\t\tDamage:{MinDamage()}-{MaxDamage()}\t\t HP:{healtPoint}");
             Console.WriteLine();
             randDamage = damage;
         }
@@ -88,6 +91,7 @@ namespace TryBack
         public void InfoFightPlayer(Monsters monsters)
         {
             Console.WriteLine($"You hit the {monsters.typeMonster} for {randDamage} damage");
+            Console.WriteLine();
             Console.WriteLine($"{monsters.typeMonster} hp:{monsters.healtPoint}");
             Console.WriteLine();
         }

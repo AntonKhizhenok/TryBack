@@ -33,10 +33,9 @@ namespace TryBack
         }
         public void PrintMonster()
         {
-
             Console.WriteLine();
             Console.WriteLine("\t\tINFO OF MONSTER");
-            Console.WriteLine($"{name}\t {typeMonster}\t\t\tDamage:{randDamage}\t\tHP:{healtPoint}");
+            Console.WriteLine($"{name}\t {typeMonster}\t\t\tDamage:{MinDamage()}-{MaxDamage()}\t\tHP:{healtPoint}");
             Console.WriteLine();
             randDamage = damage;
         }
@@ -52,6 +51,7 @@ namespace TryBack
         public void InfoFightMonster(Player player)
         {
             Console.WriteLine($"{typeMonster} hit the {player.name} for {randDamage} damage");
+            Console.WriteLine();
             Console.WriteLine($"{player.name} hp:{player.healtPoint}");
         }
 
@@ -62,7 +62,7 @@ namespace TryBack
             maxDamage = MathUtils.MaxDamage(damage, 3);
             randDamage=MathUtils.GetRandomDamage(damage, 3);
             player.healtPoint -= randDamage;
-
+            Console.WriteLine();
         }
 
         public static void PrintTxt()

@@ -63,8 +63,8 @@ namespace TryBack
         static void Fight(Player player1, Monsters monsters1)
         {
             monsters1=Monsters.GetMonster();  //getNewMonster
-            //player1.PrintPlayer();
-            //monsters1.PrintMonster();
+            player1.PrintPlayer();
+            monsters1.PrintMonster();
             while (monsters1.isAlive())
             {
                 if (player1.isAlive())
@@ -88,8 +88,8 @@ namespace TryBack
                         input(player1, monsters1);
                     }
                     player1.InfoFightPlayer(monsters1);
-                    player1.PrintPlayer();
                     monsters1.InfoFightMonster(player1);
+                    player1.PrintPlayer();
                     monsters1.PrintMonster();
                     Console.Write("(a)ttack/(r)un away:");
                     string attOrRun = Console.ReadLine();
