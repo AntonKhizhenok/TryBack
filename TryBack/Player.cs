@@ -17,7 +17,12 @@ namespace TryBack
         public override int healtPoint { get; set; }
         public override int minDamage { get; set; }
         public override int maxDamage { get; set ; }
-
+        enum classPlayer
+        {
+            archer=1,
+            sniper,
+            swordsman
+        }
 
         public Player(string name,string typePlayer,string level,string damage,string healtPoint)
         {
@@ -28,13 +33,42 @@ namespace TryBack
             this.healtPoint=int.Parse(healtPoint);
 
         }
+        public void CreatePlater()
+        {
+            Console.WriteLine("Enter name player!!!");
+            name = Console.ReadLine();
+            Console.Clear();
+        }
+        public void classPlayer1()
+        {
+            Console.WriteLine("Select player class (1,2,3)");
+            Console.WriteLine();
+           string[]massClassPlayer=Enum.GetNames(typeof(classPlayer));
+            foreach (string item in massClassPlayer)
+            {
+                Console.WriteLine(item);
+            }
+            int select = int.Parse(Console.ReadLine());
+            switch (select)
+            {
+                case 1:
+                    typePlayer = Enum.GetName(typeof(classPlayer), 1);
+                    break;
+                case 2:
+                    typePlayer = Enum.GetName(typeof(classPlayer),2);
+                    break;
+                case 3:
+                    typePlayer = Enum.GetName(typeof(classPlayer),3);
+                    break;
+            }
+
+
+        }
         public void PrintPlayer()
         {
-            minDamage = MinDamage();
-            maxDamage = MaxDamage();
             Console.WriteLine();
-            Console.WriteLine($"\t\t\t\t\t\tINFO OF PLAYER!!!");
-            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tBasic damage:{damage} Random Damage: {randDamage} (Min:{minDamage}-Max:{maxDamage})\t\tHealtPoint:{healtPoint}");
+            Console.WriteLine($"\t\tINFO OF PLAYER!!!");
+            Console.WriteLine($"{name}\t{typePlayer}\tlvl.{level}\t\tDamage: {randDamage}\t\t HP:{healtPoint}");
             Console.WriteLine();
             randDamage = damage;
         }
@@ -43,9 +77,18 @@ namespace TryBack
         {
             minDamage = MinDamage();
             maxDamage = MaxDamage();
+            Console.Clear();
             Console.WriteLine();
-            Console.WriteLine($"\t\t\t\t\t\tPLAYER CHARACTERIES!!!");
-            Console.WriteLine($"Name:{name}\tTypePlayer:{typePlayer}\tLevel:{level}\t\tBasic damage:{damage} (Min:{minDamage}-Max:{maxDamage})\t\tHealtPoint:{healtPoint}");
+            Console.WriteLine($"PLAYER CHARACTERIES!!!");
+            Console.WriteLine();
+            Console.Write($"{name}\t{typePlayer}\tlvl.{level}\t\tBasic damage:{damage} (Min:{minDamage}-Max:{maxDamage})\t\tHP:{healtPoint}");
+            Console.WriteLine();
+            Console.ReadLine();
+        }
+        public void InfoFightPlayer(Monsters monsters)
+        {
+            Console.WriteLine($"You hit the {monsters.typeMonster} for {randDamage} damage");
+            Console.WriteLine($"{monsters.typeMonster} hp:{monsters.healtPoint}");
             Console.WriteLine();
         }
 

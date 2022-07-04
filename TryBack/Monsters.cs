@@ -10,7 +10,7 @@ namespace TryBack
     class Monsters : Creature
     {
         private string name { get; set; }
-        private string typeMonster { get; set; }
+        public string typeMonster { get; set; }
         protected override int damage { get; set; }
         protected override int randDamage { get; set; }
         public override int healtPoint { get; set; }
@@ -33,11 +33,10 @@ namespace TryBack
         }
         public void PrintMonster()
         {
-            minDamage = MinDamage();
-            maxDamage = MaxDamage();
+
             Console.WriteLine();
-            Console.WriteLine("\t\t\t\t\t\tINFO OF MONSTER");
-            Console.WriteLine($"Name:{name}\tTypeMonster:{typeMonster}\t\t\tBasic damage:{damage} Random Damage:{randDamage} (Min:{minDamage}-Max:{maxDamage})\t\tHealtPoint:{healtPoint}");
+            Console.WriteLine("\t\tINFO OF MONSTER");
+            Console.WriteLine($"{name}\t {typeMonster}\t\t\tDamage:{randDamage}\t\tHP:{healtPoint}");
             Console.WriteLine();
             randDamage = damage;
         }
@@ -48,6 +47,12 @@ namespace TryBack
         public override int MaxDamage()
         {
             return MathUtils.MaxDamage(damage, 5);
+        }
+
+        public void InfoFightMonster(Player player)
+        {
+            Console.WriteLine($"{typeMonster} hit the {player.name} for {randDamage} damage");
+            Console.WriteLine($"{player.name} hp:{player.healtPoint}");
         }
 
 
