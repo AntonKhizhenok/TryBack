@@ -74,18 +74,29 @@ namespace TryBack
                     if (player1.isAlive() == false)
                     {
                         Console.WriteLine("YOU DEAD!!!!!((((");
-                        Console.ReadLine();
-                        PrintMenu();
-                        input(player1, monsters1);
-
+                        Console.WriteLine("Use ENTER to continie");
+                        var PlayerDeadKey = Console.ReadKey();
+                        switch (PlayerDeadKey.Key)
+                        {
+                            case ConsoleKey.Enter:
+                                PrintMenu();
+                                input(player1, monsters1);
+                                break;
+                        }
                     }
                     if (monsters1.isAlive() == false)
                     {
                         Console.WriteLine();
                         Console.WriteLine("MOSTER DEAD:D))))))");
-                        Console.ReadLine();
-                        PrintMenu();
-                        input(player1, monsters1);
+                        Console.WriteLine("Use ENTER to continie");
+                        var MonsterDeadKey = Console.ReadKey();
+                        switch (MonsterDeadKey.Key)
+                        {
+                            case ConsoleKey.Enter:
+                                PrintMenu();
+                                input(player1, monsters1);
+                                break;
+                        }
                     }
                     player1.InfoFightPlayer(monsters1);
                     monsters1.InfoFightMonster(player1);
