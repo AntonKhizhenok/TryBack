@@ -9,9 +9,8 @@ namespace TryBack
 {
     class Monsters : Creature
     {
-        private string name { get; set; }
+        public string name { get; set; }
         public string typeMonster { get; set; }
-        protected override int damage { get; set; }
         protected override int randDamage { get; set; }
         public override int healtPoint { get; set; }
         public override int minDamage { get; set; }
@@ -23,46 +22,42 @@ namespace TryBack
             Snake
         }
 
-        public Monsters(string name, string _TypeMonsters,string damage,string healtPoint)
+        public Monsters(string name, string _TypeMonsters,string minDamage,string maxDamage,string healtPoint)
         {
             this.name=name;
             typeMonster=Enum.GetName(typeof(TypeMonsters), int.Parse(_TypeMonsters));
-            this.damage = int.Parse(damage);
+            this.minDamage = int.Parse(minDamage);
+            this.maxDamage = int.Parse(maxDamage);
             this.healtPoint =int.Parse(healtPoint);
 
         }
         public void PrintMonster()
         {
+            Console.WriteLine($"You have encountered {name}({typeMonster}, dmg. {minDamage}-{maxDamage}, hp {healtPoint})");
             Console.WriteLine();
-            Console.WriteLine("\t\tINFO OF MONSTER");
-            Console.WriteLine($"{name}\t {typeMonster}\t\t\tDamage:{MinDamage()}-{MaxDamage()}\t\tHP:{healtPoint}");
-            Console.WriteLine();
-            randDamage = damage;
-        }
-        public override int MinDamage()
-        {
-            return MathUtils.MinDamage(damage, 5);
-        }
-        public override int MaxDamage()
-        {
-            return MathUtils.MaxDamage(damage, 5);
         }
 
         public void InfoFightMonster(Player player)
         {
-            Console.WriteLine($"{typeMonster} hit the {player.name} for {randDamage} damage");
+            Console.Write($"{name} hit You for ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{randDamage} damage");
+            Console.ResetColor();
             Console.WriteLine();
-            Console.WriteLine($"{player.name} hp:{player.healtPoint}");
+            Console.Write($"{player.name} ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"hp:{player.healtPoint}");
+            Console.ResetColor();
+            Console.WriteLine();
         }
 
 
         public override void Attack(Player player, Monsters monsters)
         {
-            minDamage = MathUtils.MinDamage(damage, 3);
-            maxDamage = MathUtils.MaxDamage(damage, 3);
-            randDamage=MathUtils.GetRandomDamage(damage, 3);
+            randDamage = MathUtils.GetRandomDamage(minDamage, maxDamage);
             player.healtPoint -= randDamage;
             Console.WriteLine();
+            
         }
 
         public static void PrintTxt()
@@ -78,14 +73,14 @@ namespace TryBack
             arrMonster.Close();
             
         }
-        public static Monsters GetMonster()
+        public static Monsters GetMonster()//созднаие монстра
         {
             string[] monsters = File.ReadAllLines(@"D:\Test.txt");
             int numberOfLines = monsters.Length;
             int randNumber=MathUtils.GetRandomNumber(numberOfLines);
             string strMonster = monsters[randNumber];
             string[] monsterProperties = strMonster.Split(';');
-            Monsters monstersObj= new Monsters(monsterProperties[0],monsterProperties[1],monsterProperties[2],monsterProperties[3]);
+            Monsters monstersObj= new Monsters(monsterProperties[0],monsterProperties[1],monsterProperties[2],monsterProperties[3], monsterProperties[4]);
             return  monstersObj;
         }
     }

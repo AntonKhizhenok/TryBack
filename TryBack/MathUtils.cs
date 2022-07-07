@@ -6,25 +6,17 @@ using System.Threading.Tasks;
 
 namespace TryBack
 {
-    class MathUtils
+     class MathUtils
     {
+
+        public static Random random = new Random();
         public static int GetRandomNumber(int n)
         {
-            Random random = new Random();
             return random.Next(0, n);
         }
-        public static int GetRandomDamage(int damage,int value)
+        public static int GetRandomDamage(int minDamage,int maxDamage)
         {
-            Random randomDamage = new Random();
-            return randomDamage.Next(damage - value, damage + value);
-        }
-        public static int MinDamage(int damage,int value)
-        {
-            return Math.Min(damage - value, damage + value);
-        }
-        public static int MaxDamage(int damage, int value)
-        {
-            return Math.Max(damage - value, damage + value);
+            return random.Next(minDamage, maxDamage+1);
         }
 
     }

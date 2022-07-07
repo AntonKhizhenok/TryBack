@@ -13,10 +13,9 @@ namespace TryBack
         private string typePlayer { get; set; }
         private int level { get; set; }
         protected override int randDamage { get; set; }
-        protected override int damage { get; set; }
         public override int healtPoint { get; set; }
-        public override int minDamage { get; set; }
-        public override int maxDamage { get; set ; }
+        public override int minDamage { get; set; } 
+        public override int maxDamage { get; set; } 
         enum classPlayer
         {
             archer=1,
@@ -24,18 +23,19 @@ namespace TryBack
             swordsman
         }
 
-        public Player(string name,string typePlayer,string level,string damage,string healtPoint)
+        public Player(string name,string typePlayer,string level,string minDamage,string maxDamage,string healtPoint)
         {
             this.name = name;
             this.typePlayer = typePlayer;
             this.level = int.Parse(level);
-            this.damage = int.Parse(damage);
+            this.minDamage = int.Parse(minDamage);
+            this.maxDamage = int.Parse(maxDamage);
             this.healtPoint=int.Parse(healtPoint);
 
         }
         public void CreatePlater()
         {
-            Console.WriteLine("Enter name player!!!");
+            Console.WriteLine("Enter player name");
             name = Console.ReadLine();
             Console.Clear();
         }
@@ -67,48 +67,34 @@ namespace TryBack
 
 
         }
-        public void PrintPlayer()
-        {
-            Console.WriteLine();
-            Console.WriteLine($"\t\tINFO OF PLAYER!!!");
-            Console.WriteLine($"{name}\t{typePlayer}\tlvl.{level}\t\tDamage:{MinDamage()}-{MaxDamage()}\t\t HP:{healtPoint}");
-            Console.WriteLine();
-            randDamage = damage;
-        }
 
         public void PrintInfoPlayer()
         {
-            minDamage = MinDamage();
-            maxDamage = MaxDamage();
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine($"PLAYER CHARACTERIES!!!");
+            Console.Write($"{name}\t{typePlayer}\tlvl.{level}\t\tDamage:{minDamage}-{maxDamage}\t\tHP:{healtPoint}");
             Console.WriteLine();
-            Console.Write($"{name}\t{typePlayer}\tlvl.{level}\t\tBasic damage:{damage} (Min:{minDamage}-Max:{maxDamage})\t\tHP:{healtPoint}");
-            Console.WriteLine();
-            Console.ReadLine();
         }
         public void InfoFightPlayer(Monsters monsters)
         {
-            Console.WriteLine($"You hit the {monsters.typeMonster} for {randDamage} damage");
+            Console.Write($"You hit the {monsters.typeMonster} for ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{randDamage} damage");
+            Console.ResetColor();
             Console.WriteLine();
-            Console.WriteLine($"{monsters.typeMonster} hp:{monsters.healtPoint}");
+            Console.Write($"{monsters.name}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($" hp:{ monsters.healtPoint}");
+            Console.ResetColor();
             Console.WriteLine();
         }
 
-        public override int MinDamage()
-        {
-            return MathUtils.MinDamage(damage, 5);
-        }
-        public override int MaxDamage()
-        {
-            return MathUtils.MaxDamage(damage, 5);
-        }
 
         public override void Attack(Player player, Monsters monsters)
         {
-            randDamage = MathUtils.GetRandomDamage(damage, 5);
+            randDamage = MathUtils.GetRandomDamage(minDamage, maxDamage); 
             monsters.healtPoint -= randDamage;
+            
         }
 
         public static void InfoPlayer()
@@ -130,7 +116,7 @@ namespace TryBack
             int randNumberPlayer = MathUtils.GetRandomNumber(numberOfLines);
             string strPlayer = player[randNumberPlayer];
             string[] playerProperties = strPlayer.Split(';');
-            Player playerObj = new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4]);
+            Player playerObj = new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4], playerProperties[5]);
             return playerObj;
         }
         

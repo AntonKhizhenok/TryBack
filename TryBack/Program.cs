@@ -31,8 +31,15 @@ namespace TryBack
                 case ConsoleKey.D1:
                     {
                         player1.PrintInfoPlayer();
-                        PrintMenu();
-                        input(player1, monsters1);
+                        Console.WriteLine("Use ENTER to continie");
+                        var MenuKey = Console.ReadKey();
+                        switch (MenuKey.Key)
+                        {
+                            case ConsoleKey.Enter:
+                                PrintMenu();
+                                input(player1, monsters1);
+                                break;
+                        }
                         break;
                     }
                 case ConsoleKey.NumPad2:
@@ -41,7 +48,7 @@ namespace TryBack
                         Console.Clear();
                         if (player1.isAlive() == false)
                         {
-                            Console.WriteLine("Player dead((");
+                            Console.WriteLine("Player dead(");
                             Console.ReadLine();
                             PrintMenu();
                             input(player1, monsters1);
@@ -63,17 +70,45 @@ namespace TryBack
         static void Fight(Player player1, Monsters monsters1)
         {
             monsters1=Monsters.GetMonster();  //getNewMonster
-            player1.PrintPlayer();
             monsters1.PrintMonster();
             while (monsters1.isAlive())
             {
                 if (player1.isAlive())
                 {
+                    Console.Write("(a)ttack/(r)un away(50%):");
+                    string attOrRun = Console.ReadLine();
+                    switch (attOrRun)
+                    {
+                        case "a":
+                            break;
+                        case "r":
+                            int randNum = MathUtils.GetRandomNumber(2);
+                            Console.WriteLine();
+                            switch (randNum)
+                            {
+                                case 0:
+                                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                                    Console.WriteLine("You failed to escape");
+                                    Console.ResetColor();
+                                    break;
+                                case 1:
+                                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                                    Console.WriteLine("You have run away successfully\n");
+                                    Console.ResetColor();
+                                    Fight(player1, monsters1);
+                                    break;
+                            }
+                            break;
+                    }
                     player1.Attack(player1, monsters1);
                     monsters1.Attack(player1, monsters1);
                     if (player1.isAlive() == false)
                     {
-                        Console.WriteLine("YOU DEAD!!!!!((((");
+                        Console.WriteLine();
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("YOU DEAD");
+                        Console.ResetColor();
+                        Console.WriteLine();
                         Console.WriteLine("Use ENTER to continie");
                         var PlayerDeadKey = Console.ReadKey();
                         switch (PlayerDeadKey.Key)
@@ -87,7 +122,9 @@ namespace TryBack
                     if (monsters1.isAlive() == false)
                     {
                         Console.WriteLine();
-                        Console.WriteLine("MOSTER DEAD:D))))))");
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine($"{monsters1.name} is dead");
+                        Console.ResetColor();
                         Console.WriteLine("Use ENTER to continie");
                         var MonsterDeadKey = Console.ReadKey();
                         switch (MonsterDeadKey.Key)
@@ -100,33 +137,6 @@ namespace TryBack
                     }
                     player1.InfoFightPlayer(monsters1);
                     monsters1.InfoFightMonster(player1);
-                    player1.PrintPlayer();
-                    monsters1.PrintMonster();
-                    Console.Write("(a)ttack/(r)un away:");
-                    string attOrRun = Console.ReadLine();
-                    switch (attOrRun)
-                    {
-                        case "a":
-                            break;
-                        case "r":
-                            int randNum = MathUtils.GetRandomNumber(2);
-                            Console.WriteLine();
-                            Console.WriteLine("50/50 chance run away");
-                            Console.WriteLine();
-                            switch (randNum)
-                            {
-                                case 0:
-                                    break;
-                                case 1:
-                                    Console.Clear();
-                                    Console.WriteLine("Bruh...Player run away\n");
-                                    Console.WriteLine("NEW MONSTER");
-                                    Console.WriteLine();
-                                    Fight(player1, monsters1);
-                                    break;
-                            }
-                            break;
-                    }
                 }
             }
         }
@@ -139,7 +149,6 @@ namespace TryBack
             player2.classPlayer1();
             PrintMenu();
             input(player2,monsters2);
-            Console.ReadLine();
         }
     }
 }

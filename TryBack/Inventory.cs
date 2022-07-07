@@ -8,5 +8,6 @@ namespace TryBack
 {
     class Inventory
     {
+
     }
 }
