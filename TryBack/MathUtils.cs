@@ -18,6 +18,10 @@ namespace TryBack
         {
             return random.Next(minDamage, maxDamage+1);
         }
+        public static void Experience()
+        {
+
+        }
 
     }
 }

@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="Bow.cs" />
     <Compile Include="ChainMail.cs" />
+    <Compile Include="ClassData.cs" />
     <Compile Include="Creature.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Gun.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="MathUtils.cs" />

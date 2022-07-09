@@ -7,12 +7,8 @@ using System.IO;
 
 namespace TryBack
 {
-    class Program
+    class ClassData
     {
-       
-        static void Main(string[] args)
-        {
-            Game.Start();
-        }
+
     }
 }

@@ -11,69 +11,52 @@ namespace TryBack
     {
         public string name { get; set; }
         private string typePlayer { get; set; }
-        private int level { get; set; }
+        protected override int lvl { get; set; } 
         protected override int randDamage { get; set; }
-        public override int healtPoint { get; set; }
+        public override int currentHealth { get; set; }
         public override int minDamage { get; set; } 
-        public override int maxDamage { get; set; } 
-        enum classPlayer
-        {
-            archer=1,
-            sniper,
-            swordsman
-        }
+        public override int maxDamage { get; set; }
+        public override int fullHealth { get; set; }
 
-        public Player(string name,string typePlayer,string level,string minDamage,string maxDamage,string healtPoint)
+        public Player(string name,string lvl,string typePlayer,string minDamage,string maxDamage,string currentHealth)
         {
             this.name = name;
             this.typePlayer = typePlayer;
-            this.level = int.Parse(level);
+            this.lvl = int.Parse(lvl);
             this.minDamage = int.Parse(minDamage);
             this.maxDamage = int.Parse(maxDamage);
-            this.healtPoint=int.Parse(healtPoint);
-
+            this.currentHealth = int.Parse(currentHealth);
+            fullHealth = int.Parse(currentHealth);
         }
-        public void CreatePlater()
+
+
+        public static Player CreatePlayer()
         {
             Console.WriteLine("Enter player name");
-            name = Console.ReadLine();
+            string playerName = Console.ReadLine();
             Console.Clear();
-        }
-        public void classPlayer1()
-        {
-            Console.WriteLine("Select player class ");
-            Console.WriteLine();
-           string[]massClassPlayer=Enum.GetNames(typeof(classPlayer));
 
-                for (int i = 0; i < massClassPlayer.Length; i++)
-                {
-                    Console.WriteLine($"{i+1}) {massClassPlayer[i]}");
-                }
-                
-            
+            Console.WriteLine("Select player class 1,2,3");
+            string[] playerClass = File.ReadAllLines(@"D:\PlayerClass.txt");
             int select = int.Parse(Console.ReadLine());
-            switch (select)
-            {
-                case 1:
-                    typePlayer = Enum.GetName(typeof(classPlayer), 1);
-                    break;
-                case 2:
-                    typePlayer = Enum.GetName(typeof(classPlayer),2);
-                    break;
-                case 3:
-                    typePlayer = Enum.GetName(typeof(classPlayer),3);
-                    break;
-            }
-
-
+            string[] playerProperties = playerClass[select - 1].Split(';');
+            Player playerObj = new Player(playerName,playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3],playerProperties[4]);
+            return playerObj;
+        }
+        public void WriteInfoPlayer()
+        {
+            StreamWriter sw = new StreamWriter("D:\\Player.txt");
+            sw.WriteLine($"{name}\t{typePlayer}\tlvl.{lvl}\t\tDamage:{minDamage}-{maxDamage}\t\tHP:{currentHealth}");
+            sw.Close();
         }
 
         public void PrintInfoPlayer()
         {
             Console.Clear();
             Console.WriteLine();
-            Console.Write($"{name}\t{typePlayer}\tlvl.{level}\t\tDamage:{minDamage}-{maxDamage}\t\tHP:{healtPoint}");
+            Console.Write($"{name}\t{typePlayer}\tlvl.{lvl}\t\tDamage:{minDamage}-{maxDamage}\t\tHP:{currentHealth}");
             Console.WriteLine();
+
         }
         public void InfoFightPlayer(Monsters monsters)
         {
@@ -84,7 +67,7 @@ namespace TryBack
             Console.WriteLine();
             Console.Write($"{monsters.name}");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" hp:{ monsters.healtPoint}");
+            Console.WriteLine($" hp:{ monsters.currentHealth}/{fullHealth}");
             Console.ResetColor();
             Console.WriteLine();
         }
@@ -93,7 +76,7 @@ namespace TryBack
         public override void Attack(Player player, Monsters monsters)
         {
             randDamage = MathUtils.GetRandomDamage(minDamage, maxDamage); 
-            monsters.healtPoint -= randDamage;
+            monsters.currentHealth -= randDamage;
             
         }
 
@@ -109,17 +92,9 @@ namespace TryBack
                 }
                 arrPlayer.Close();
         }
-        public static Player GetPlayer()
-        {
-            string[] player = File.ReadAllLines(@"D:\Player.txt");
-            int numberOfLines = player.Length;
-            int randNumberPlayer = MathUtils.GetRandomNumber(numberOfLines);
-            string strPlayer = player[randNumberPlayer];
-            string[] playerProperties = strPlayer.Split(';');
-            Player playerObj = new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4], playerProperties[5]);
-            return playerObj;
-        }
-        
+
+
+
     }
 }
 
