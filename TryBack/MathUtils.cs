@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TryBack
 {
-     class MathUtils
+    class MathUtils
     {
-
+        
         public static Random random = new Random();
         public static int GetRandomNumber(int n)
         {
@@ -18,10 +18,7 @@ namespace TryBack
         {
             return random.Next(minDamage, maxDamage+1);
         }
-        public static void Experience()
-        {
 
-        }
 
     }
 }

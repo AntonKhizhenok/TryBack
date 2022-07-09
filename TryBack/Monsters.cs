@@ -57,7 +57,7 @@ namespace TryBack
             Console.WriteLine();
             Console.Write($"{player.name} ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"hp:{player.currentHealth}/{fullHealth}");
+            Console.WriteLine($"hp:{player.currentHealth}/{player.fullHealth}");
             Console.ResetColor();
             Console.WriteLine();
         }
