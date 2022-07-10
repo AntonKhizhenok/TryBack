@@ -22,7 +22,6 @@ namespace TryBack
         public double initialExperience { get; set; } = 0;
         public double experienceRequaired { get; set; } = 100;
 
-
         public Player(string name,string lvl,string typePlayer,string minDamage,string maxDamage,string currentHealth,string fullHealth,string chanceEscape,string evasion)
         {
             this.name = name;
@@ -38,17 +37,30 @@ namespace TryBack
         
         public static Player CreatePlayer()
         {
+
             //crate name
             Console.WriteLine("Enter player name");
             string playerName = Console.ReadLine();
             Console.Clear();
             //read from file txt
-            Console.WriteLine("Select player class 1,2,3");
+            Console.WriteLine("Select player class");
+            readClassPlayer();
             string[] playerClass = File.ReadAllLines(@"D:\PlayerClass.txt");
             int select = int.Parse(Console.ReadLine());
             string[] playerProperties = playerClass[select - 1].Split(';');
             Player playerObj = new Player(playerName,playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3],playerProperties[4], playerProperties[5], playerProperties[6], playerProperties[7]);
             return playerObj;
+        }
+
+        public static void readClassPlayer()
+        {
+            string[] playerClass1 = File.ReadAllLines(@"D:\PlayerClass.txt");
+            for (int i = 0; i < playerClass1.Length; i++)
+            {
+                string[]PlayerProp=playerClass1[i].Split(';');
+                Console.WriteLine($"{i+1}) {PlayerProp[1]}"); 
+            }
+
         }
 
         public void WriteInfoPlayer()
@@ -70,21 +82,31 @@ namespace TryBack
         {
             Console.Clear();
             Console.WriteLine();
-            Console.Write($"{name}\t{typePlayer}\tlvl.{lvl}\tDamage:{minDamage}-{maxDamage}\tHP:{player.fullHealth}\tchance escape:{chanceEscape}%\tevasion:{evasion}%");
+            Console.Write($"{name}\t{typePlayer}\tlvl.{lvl}\tDamage:{minDamage}-{maxDamage}\tHP:{player.fullHealth}\tescape chance:{chanceEscape}%\tevasion:{evasion}%\texpirience:{initialExperience}/{experienceRequaired}");
             Console.WriteLine();
 
         }
         public void InfoFightPlayer(Monsters monsters)
         {
-            Console.Write($"You hit the {monsters.typeMonster} for ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{randDamage} damage");
-            Console.ResetColor();
-            Console.WriteLine();
-            Console.Write($"{monsters.name}");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" hp:{ monsters.currentHealth}/{monsters.fullHealth}");
-            Console.ResetColor();
+            if (monsters.currentHealth >= 0)
+            {
+                Console.Write($"You hit the {monsters.name} for ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{randDamage} damage");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.Write($"{monsters.name}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($" hp:{ monsters.currentHealth}/{monsters.fullHealth}");
+                Console.ResetColor();
+            }
+            else if (monsters.currentHealth<0)
+            {
+                Console.Write($"You hit the {monsters.name} for ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{randDamage} damage");
+                Console.ResetColor();
+            }
             Console.WriteLine();
         }
         
@@ -109,14 +131,14 @@ namespace TryBack
                 arrPlayer.Close();
         }
 
-        public void Experience(Player player)
+        public void Experience(Player player,Monsters monster)
         {
-            initialExperience += 100;
+            monster.expLvlUp(monster);
+            initialExperience += monster.experience;
             if(initialExperience>=experienceRequaired)
             {
                 lvl += 1;
-                experienceRequaired *= 1.2;//difference in experience between levels
-                initialExperience = 0;//resetting experience for the account of the next level
+                experienceRequaired *= 2.5;//difference in experience between levels
                 if (typePlayer=="robber")
                 {
                     player.fullHealth = (int)(player.fullHealth * 1.2);

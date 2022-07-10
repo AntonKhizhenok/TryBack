@@ -12,7 +12,8 @@ namespace TryBack
        
         static void Main(string[] args)
         {
-            Console.WriteLine("new game or continue current game? 1,2");
+            Console.WriteLine("1)Start new game");
+            Console.WriteLine("2)Continue game");
             int newOrCont = int.Parse(Console.ReadLine());
             Console.Clear();
             switch (newOrCont)

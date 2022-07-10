@@ -95,6 +95,10 @@ namespace TryBack
                     switch (attOrRun)
                     {
                         case "a":
+                            player1.Attack(player1, monsters1);
+                            monsters1.Evasion(player1, monsters1);
+                            player1.InfoFightPlayer(monsters1);
+                            monsters1.InfoFightMonster(player1);
                             break;
                         case "r":
                             int randNum = MathUtils.GetRandomNumber(101);
@@ -104,6 +108,10 @@ namespace TryBack
                                 Console.ForegroundColor = ConsoleColor.DarkRed;
                                 Console.WriteLine("You failed to escape");
                                 Console.ResetColor();
+                                player1.Attack(player1, monsters1);
+                                monsters1.Evasion(player1, monsters1);
+                                player1.InfoFightPlayer(monsters1);
+                                monsters1.InfoFightMonster(player1);
                             }
                             else if (randNum <= player1.chanceEscape)
                             {
@@ -114,32 +122,13 @@ namespace TryBack
                             }      
                             break;
                     }
-                    player1.Attack(player1, monsters1);
-                    monsters1.Evasion(player1, monsters1);
-                    if (player1.isAlive() == false)
-                    {
-                        Console.WriteLine();
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("YOU DEAD");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        Console.WriteLine("Use ENTER to continie");
-                        var PlayerDeadKey = Console.ReadKey();
-                        switch (PlayerDeadKey.Key)
-                        {
-                            case ConsoleKey.Enter:
-                                PrintMenu();
-                                input(player1);
-                                break;
-                        }
-                    }
                     if (monsters1.isAlive() == false)
                     {
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"{monsters1.name} is dead");
                         Console.ResetColor();
-                        player1.Experience(player1);//expirince lvl up
+                        player1.Experience(player1,monsters1);//expirince lvl up
                         Console.WriteLine("Use ENTER to continie");
                         var MonsterDeadKey = Console.ReadKey();
                         switch (MonsterDeadKey.Key)
@@ -150,9 +139,25 @@ namespace TryBack
                                 break;
                         }
                     }
-                    player1.InfoFightPlayer(monsters1);
-                    monsters1.InfoFightMonster(player1);
                 }
+                else if (player1.isAlive() == false)
+                {
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("YOU DEAD");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    Console.WriteLine("Use ENTER to continie");
+                    var PlayerDeadKey = Console.ReadKey();
+                    switch (PlayerDeadKey.Key)
+                    {
+                        case ConsoleKey.Enter:
+                            PrintMenu();
+                            input(player1);
+                            break;
+                    }
+                }
+
             }
         }
         public static void Save(Player player)
