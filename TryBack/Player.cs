@@ -18,11 +18,12 @@ namespace TryBack
         public override int maxDamage { get; set; }
         public override int fullHealth { get; set;}
         public int chanceEscape;
+        public int evasion;
         public double initialExperience { get; set; } = 0;
         public double experienceRequaired { get; set; } = 100;
 
 
-        public Player(string name,string lvl,string typePlayer,string minDamage,string maxDamage,string currentHealth,string fullHealth,string chanceEscape)
+        public Player(string name,string lvl,string typePlayer,string minDamage,string maxDamage,string currentHealth,string fullHealth,string chanceEscape,string evasion)
         {
             this.name = name;
             this.typePlayer = typePlayer;
@@ -32,10 +33,9 @@ namespace TryBack
             this.currentHealth = int.Parse(currentHealth);
             this.fullHealth = int.Parse(fullHealth);
             this.chanceEscape = int.Parse(chanceEscape);
-
+            this.evasion = int.Parse(evasion);
         }
-
-
+        
         public static Player CreatePlayer()
         {
             //crate name
@@ -47,14 +47,14 @@ namespace TryBack
             string[] playerClass = File.ReadAllLines(@"D:\PlayerClass.txt");
             int select = int.Parse(Console.ReadLine());
             string[] playerProperties = playerClass[select - 1].Split(';');
-            Player playerObj = new Player(playerName,playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3],playerProperties[4], playerProperties[5], playerProperties[6]);
+            Player playerObj = new Player(playerName,playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3],playerProperties[4], playerProperties[5], playerProperties[6], playerProperties[7]);
             return playerObj;
         }
 
         public void WriteInfoPlayer()
         {
             StreamWriter writePlayer = new StreamWriter("D:\\Player.txt");
-            writePlayer.WriteLine($"{name};{lvl};{typePlayer};{minDamage};{maxDamage};{currentHealth};{fullHealth};{chanceEscape}");
+            writePlayer.WriteLine($"{name};{lvl};{typePlayer};{minDamage};{maxDamage};{currentHealth};{fullHealth};{chanceEscape};{evasion}");
             writePlayer.Close();
         }
 
@@ -62,7 +62,7 @@ namespace TryBack
         {
             string[] playerClass = File.ReadAllLines(@"D:\Player.txt");
             string[] playerProperties = playerClass[0].Split(';');
-            Player readPlayer = new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4], playerProperties[5], playerProperties[6], playerProperties[7]);
+            Player readPlayer = new Player(playerProperties[0], playerProperties[1], playerProperties[2], playerProperties[3], playerProperties[4], playerProperties[5], playerProperties[6], playerProperties[7], playerProperties[8]);
             return readPlayer;
         }
 
@@ -70,7 +70,7 @@ namespace TryBack
         {
             Console.Clear();
             Console.WriteLine();
-            Console.Write($"{name}\t{typePlayer}\tlvl.{lvl}\tDamage:{minDamage}-{maxDamage}\tHP:{player.fullHealth}\tchance escape:{chanceEscape}%");
+            Console.Write($"{name}\t{typePlayer}\tlvl.{lvl}\tDamage:{minDamage}-{maxDamage}\tHP:{player.fullHealth}\tchance escape:{chanceEscape}%\tevasion:{evasion}%");
             Console.WriteLine();
 
         }
@@ -93,6 +93,8 @@ namespace TryBack
             randDamage = MathUtils.GetRandomDamage(minDamage, maxDamage); 
             monsters.currentHealth -= randDamage;
         }
+
+
 
         public static void InfoPlayer()
         {
@@ -122,6 +124,7 @@ namespace TryBack
                     maxDamage += 2;
                     if(chanceEscape<75)
                     chanceEscape = chanceEscape + 1;
+                    evasion = evasion + 1;
                 }
                 if (typePlayer == "warrior")
                 {

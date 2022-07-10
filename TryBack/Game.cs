@@ -115,7 +115,7 @@ namespace TryBack
                             break;
                     }
                     player1.Attack(player1, monsters1);
-                    monsters1.Attack(player1, monsters1);
+                    monsters1.Evasion(player1, monsters1);
                     if (player1.isAlive() == false)
                     {
                         Console.WriteLine();

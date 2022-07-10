@@ -70,6 +70,24 @@ namespace TryBack
             Console.WriteLine();
         }
 
+        public void Evasion(Player player1, Monsters monsters1)
+        {
+            int randEvasion = MathUtils.GetRandomNumber(101);
+            Console.WriteLine();
+            if (randEvasion > player1.evasion)
+            {
+                monsters1.Attack(player1, monsters1);
+            }
+            else if (randEvasion <= player1.evasion)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.WriteLine("you dodged the monster's attack");
+                Console.ResetColor();
+                Console.WriteLine();
+                monsters1.randDamage = 0;
+            }
+        }
+
         public static void PrintTxt()
         {
             String line;
