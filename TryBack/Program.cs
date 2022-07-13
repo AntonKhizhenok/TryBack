@@ -19,6 +19,7 @@ namespace TryBack
             switch (newOrCont)
             {
                 case 1:
+                    Player.DeletePlayer();
                     Game.Start();
                     break;
                 case 2:

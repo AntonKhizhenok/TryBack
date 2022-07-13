@@ -116,7 +116,11 @@ namespace TryBack
             monsters.currentHealth -= randDamage;
         }
 
-
+        public static void DeletePlayer()
+        {
+            StreamWriter sr = new StreamWriter("D:\\Player.txt", false);
+            sr.Close();
+        }
 
         public static void InfoPlayer()
         {
