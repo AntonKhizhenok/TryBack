@@ -135,6 +135,100 @@ namespace TryBack
                 arrPlayer.Close();
         }
 
+        public void SkeilOfRarity(Monsters monsters)
+        {
+            if (typePlayer=="robber")
+            {
+                if(monsters.rarityMonster=="Rare")
+                {
+                    minDamage += 1;
+                    maxDamage += 2;
+                    if (chanceEscape < 75)
+                        chanceEscape = chanceEscape + 1;
+                    evasion = evasion + 1;
+                }
+                else if (monsters.rarityMonster == "Epic")
+                {
+                    minDamage += 3;
+                    maxDamage += 4;
+                    if (chanceEscape < 75)
+                        chanceEscape = chanceEscape + 3;
+                    evasion = evasion + 2;
+                }
+                else if (monsters.rarityMonster == "Legendary")
+                {
+                    minDamage += 5;
+                    maxDamage += 6;
+                    if (chanceEscape < 75)
+                        chanceEscape = chanceEscape + 6;
+                    evasion = evasion + 4;
+                }
+                else if (monsters.rarityMonster == "Mythic")
+                {
+                    minDamage += 7;
+                    maxDamage += 8;
+                    if (chanceEscape < 75)
+                        chanceEscape = chanceEscape + 10;
+                    evasion = evasion + 7;
+                }
+            }
+            if (typePlayer== "warrior")
+            {
+                if(monsters.rarityMonster=="Rare")
+                {
+                    fullHealth = fullHealth + 10+5;
+                    minDamage += 2;
+                    maxDamage += 3;
+                }
+                else if(monsters.rarityMonster=="Epic")
+                {
+                    fullHealth = fullHealth+ 10 + 10;
+                    minDamage += 3;
+                    maxDamage += 4;
+                }
+                else if(monsters.rarityMonster=="Legendary")
+                {
+                    fullHealth = fullHealth  + 10 + 15;
+                    minDamage += 5;
+                    maxDamage += 5;
+                }
+                else if(monsters.rarityMonster == "Mythic")
+                {
+                    fullHealth = fullHealth + 10 + 25;
+                    minDamage += 6;
+                    maxDamage += 8;
+                }
+            }
+            if(typePlayer== "shooter")
+            {
+                if(monsters.rarityMonster=="Rare")
+                {
+                    minDamage += 2;
+                    maxDamage += 3;
+                    evasion = evasion + 2;
+                }
+                else if(monsters.rarityMonster == "Epic")
+                {
+                    minDamage += 5;
+                    maxDamage += 6;
+                    evasion = evasion + 3;
+                }
+                else if (monsters.rarityMonster == "Legendary")
+                {
+                    minDamage += 6;
+                    maxDamage += 8;
+                    evasion = evasion + 4;
+                }
+                else if (monsters.rarityMonster == "Mythic")
+                {
+                    minDamage += 8;
+                    maxDamage += 10;
+                    evasion = evasion + 5;
+                }
+
+            }
+        }
+
         public void Experience(Player player,Monsters monster)
         {
             monster.expLvlUp(monster);
@@ -145,12 +239,15 @@ namespace TryBack
                 experienceRequaired *= 2.5;//difference in experience between levels
                 if (typePlayer=="robber")
                 {
+                    
+
                     player.fullHealth = (int)(player.fullHealth * 1.2);
                     minDamage += 1;
                     maxDamage += 2;
                     if(chanceEscape<75)
                     chanceEscape = chanceEscape + 1;
                     evasion = evasion + 1;
+
                 }
                 if (typePlayer == "warrior")
                 {
@@ -163,6 +260,7 @@ namespace TryBack
                     player.fullHealth = (int)(player.fullHealth * 1.2);
                     minDamage += 2;
                     maxDamage += 3;
+                    evasion = evasion + 2;
                 }
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.DarkYellow;

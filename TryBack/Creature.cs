@@ -22,9 +22,5 @@ namespace TryBack
         {
                 return currentHealth > 0;
         }
-
-        
-        
-        
     }
 }

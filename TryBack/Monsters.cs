@@ -70,13 +70,13 @@ namespace TryBack
             if (rarityMonster=="Common")
             {
                 Console.ForegroundColor = ConsoleColor.Gray;
-                Console.WriteLine($"rarityMonster: {rarityMonster})");
+                Console.WriteLine($"{rarityMonster})");
                 Console.ResetColor();
             }
             else if(rarityMonster=="Uncommon")
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"{rarityMonster}");
+                Console.Write($"{rarityMonster})");
                 Console.ResetColor();
                 Console.WriteLine(")");
             }
@@ -177,7 +177,7 @@ namespace TryBack
         public static Monsters GetMonster()//созднаие монстра
         {
             int[] arrChance = { 0, 50, 70, 85, 93, 98, 100 };//0-50% is Common|50-70% is Uncommon|70-85 is Rare|85-93 is Epic|93-98 is Legendary|98-100 is Mithic
-            int randChance = MathUtils.GetRandomNumber(49);
+            int randChance = MathUtils.GetRandomNumber(101);
             string[] textMonster = File.ReadAllLines(@"D:\Monster.txt");
             Monsters[] allMonsters = new Monsters[textMonster.Length];
             List<Monsters> allMonsterList = new List<Monsters>();
@@ -206,35 +206,30 @@ namespace TryBack
                 rarityMonsterList = allMonsterList.FindAll(allMonsters1 => allMonsters1.rarityMonster == "Uncommon");
                 randMonster = MathUtils.GetRandomNumber(rarityMonsterList.Count);
                 monstersObj = rarityMonsterList[randMonster];
-
             }
             else if (randChance > arrChance[2] && randChance <= arrChance[3])
             {
                 rarityMonsterList = allMonsterList.FindAll(allMonsters1 => allMonsters1.rarityMonster == "Rare");
                 randMonster = MathUtils.GetRandomNumber(rarityMonsterList.Count);
                 monstersObj = rarityMonsterList[randMonster];
-
             }
             else if (randChance > arrChance[3] && randChance <= arrChance[4])
             {
                 rarityMonsterList = allMonsterList.FindAll(allMonsters1 => allMonsters1.rarityMonster == "Epic");
                 randMonster = MathUtils.GetRandomNumber(rarityMonsterList.Count);
                 monstersObj = rarityMonsterList[randMonster];
-
             }
             else if (randChance > arrChance[4] && randChance <= arrChance[5] )
             {
                 rarityMonsterList = allMonsterList.FindAll(allMonsters1 => allMonsters1.rarityMonster == "Legendary");
                 randMonster = MathUtils.GetRandomNumber(rarityMonsterList.Count);
                 monstersObj = rarityMonsterList[randMonster];
-
             }
             else if (randChance > arrChance[5] && randChance <= arrChance[6] )
             {
                 rarityMonsterList = allMonsterList.FindAll(allMonsters1 => allMonsters1.rarityMonster == "Mithic");
                 randMonster = MathUtils.GetRandomNumber(rarityMonsterList.Count);
                 monstersObj = rarityMonsterList[randMonster];
-
             }
             return monstersObj;
         }

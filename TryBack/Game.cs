@@ -86,11 +86,12 @@ namespace TryBack
         {
             monsters1 = Monsters.GetMonster();  //getNewMonster
             monsters1.PrintMonster();
+            player1.SkeilOfRarity(monsters1);
             while (monsters1.isAlive())
             {
                 if (player1.isAlive())
                 {
-                    Console.Write("(a)ttack/(r)un away(50%):");
+                    Console.Write("(a)ttack/(r)un away:");
                     string attOrRun = Console.ReadLine();
                     switch (attOrRun)
                     {
